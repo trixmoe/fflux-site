@@ -47,7 +47,6 @@ GLUON_SITE_PACKAGES := \
 		respondd-module-airtime \
 		iwinfo \
 		iptables \
-		haveged
 
 ##	DEFAULT_GLUON_RELEASE
 #		version string to use for images
@@ -55,7 +54,7 @@ GLUON_SITE_PACKAGES := \
 #			opkg compare-versions "$1" '>>' "$2"
 #		to decide if a version is newer or not.
 #DEFAULT_GLUON_RELEASE := sid~exp$(shell date '+%Y%m%d')
-DEFAULT_GLUON_RELEASE := 2020.1.1~stable202005
+DEFAULT_GLUON_RELEASE := 2020.2.2~stable202101
 
 
 ##	GLUON_RELEASE
@@ -113,4 +112,3 @@ endif
 
 # Do not build images for deprecated devices
 GLUON_DEPRECATED ?= 0
-

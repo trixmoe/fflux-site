@@ -15,7 +15,27 @@ msgstr ""
 "Welcome the the setup wizard of your new Freifunk Luxembourg node. "
 "Please fill out the following form and transmit it."
 
+msgid "gluon-config-mode:contact-help"
+msgstr ""
+"You may input your contact mail here. This is needed so we may contact you in case of an emergency."
+"If you not wich to provide here an contact mail, please subscribe into our <a href=\"https://lists.c3l.lu/listinfo/freifunk_luxembourg\">our user maillinf list</a>."
+"There we share all inportant information with our community."
+
+msgid "gluon-config-mode:hostname-help"
+"Insert a hostname for your freifunk node. Please start with fflux-"
+
+msgid "gluon-config-mode:geo-location-help"
+msgstr ""
+"Insert here your coordinates, where your Freifunk is physcally installed. This is optional."
+
+msgid "gluon-config-mode:altitude-label"
+msgstr ""
+"altitude"
+
+msgstr ""
+" Hostname Help"
 msgid "gluon-config-mode:pubkey"
+
 msgstr ""
 "<!-- empty -->"
 
