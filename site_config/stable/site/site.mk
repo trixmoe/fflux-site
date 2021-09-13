@@ -15,6 +15,7 @@ GLUON_FEATURES := \
         respondd \
         status-page \
         web-advanced \
+	wireless-encryption-wpa3 \
         web-wizard
 
 
@@ -54,7 +55,7 @@ GLUON_SITE_PACKAGES := \
 #			opkg compare-versions "$1" '>>' "$2"
 #		to decide if a version is newer or not.
 #DEFAULT_GLUON_RELEASE := sid~exp$(shell date '+%Y%m%d')
-DEFAULT_GLUON_RELEASE := 2020.2.2~stable202101
+DEFAULT_GLUON_RELEASE := 2020.2.3~stable202108
 
 
 ##	GLUON_RELEASE
