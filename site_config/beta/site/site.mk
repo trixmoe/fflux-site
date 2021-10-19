@@ -55,7 +55,7 @@ GLUON_SITE_PACKAGES := \
 #			opkg compare-versions "$1" '>>' "$2"
 #		to decide if a version is newer or not.
 #DEFAULT_GLUON_RELEASE := sid~exp$(shell date '+%Y%m%d')
-DEFAULT_GLUON_RELEASE := 2020.2.3.0~beta20210821
+DEFAULT_GLUON_RELEASE := 2021.1.1.0~beta20211017
 
 
 ##	GLUON_RELEASE
@@ -70,14 +70,19 @@ GLUON_RELEASE ?= $(DEFAULT_GLUON_RELEASE)
 
 # Default priority for updates.
 GLUON_PRIORITY ?= 0
-GLUON_BRANCH ?= beta
+
+# Firmware branch and autoupdater config
+GLUON_AUTOUPDATER_BRANCH ?= beta
+
+GLUON_AUTOUPDATER_ENABLED ?= 1
 
 # set mesh mode for ath10k to 802.11s
 GLUON_ATH10K_MESH ?= 11s
 
 # Languages to include
-GLUON_LANGS ?= en
+GLUON_LANGS ?= de en
 
+# define a region for specific devices like TP-Link Archer C7
 GLUON_REGION := eu
 
 USB_X86_GENERIC_NETWORK_MODULES := \
