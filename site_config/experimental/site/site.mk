@@ -47,6 +47,8 @@ GLUON_SITE_PACKAGES := \
 		gluon-ssid-changer \
 		respondd-module-airtime \
 		iwinfo \
+		# freifunk-gluon/gluon #2046 - Builds fail with iptables in GLUON_SITE_PACKAGES
+		# Note that iptables is an OpenWrt core package that is included by default (which is what triggered this bug).
 		#iptables \
 
 ##	DEFAULT_GLUON_RELEASE
