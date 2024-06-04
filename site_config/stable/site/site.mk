@@ -47,7 +47,9 @@ GLUON_SITE_PACKAGES := \
 		gluon-ssid-changer \
 		respondd-module-airtime \
 		iwinfo \
-		iptables \
+		# freifunk-gluon/gluon #2046 - Builds fail with iptables in GLUON_SITE_PACKAGES
+		# Note that iptables is an OpenWrt core package that is included by default (which is what triggered this bug).
+		#iptables \
 
 ##	DEFAULT_GLUON_RELEASE
 #		version string to use for images
@@ -55,7 +57,8 @@ GLUON_SITE_PACKAGES := \
 #			opkg compare-versions "$1" '>>' "$2"
 #		to decide if a version is newer or not.
 #DEFAULT_GLUON_RELEASE := sid~exp$(shell date '+%Y%m%d')
-DEFAULT_GLUON_RELEASE := 2021.1.2~stable202205
+# Naming after gluon: v2023.1 = 2023.1.0, as they might release v2023.1.1 = 2023.1.1
+DEFAULT_GLUON_RELEASE := 2023.1.0~stable20240604
 
 
 ##	GLUON_RELEASE
