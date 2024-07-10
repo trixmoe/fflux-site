@@ -58,7 +58,7 @@ GLUON_SITE_PACKAGES := \
 #		to decide if a version is newer or not.
 #DEFAULT_GLUON_RELEASE := sid~exp$(shell date '+%Y%m%d')
 # Naming after gluon: v2023.1 = 2023.1.0, as they might release v2023.1.1 = 2023.1.1
-DEFAULT_GLUON_RELEASE := 2023.1.0.0~exp20240603
+DEFAULT_GLUON_RELEASE := 2023.1.0.0~exp20240710
 
 
 ##	GLUON_RELEASE
