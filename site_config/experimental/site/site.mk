@@ -1,56 +1,5 @@
 ##	gluon site.mk makefile example
 
-##      GLUON_FEATURES
-#               Specify Gluon features/packages to enable;
-#               Gluon will automatically enable a set of packages
-#               depending on the combination of features listed
-
-GLUON_FEATURES := \
-        autoupdater \
-        ebtables-filter-multicast \
-        ebtables-filter-ra-dhcp \
-        ebtables-limit-arp \
-        mesh-batman-adv-15 \
-        mesh-vpn-fastd \
-        respondd \
-        status-page \
-        web-advanced \
-	wireless-encryption-wpa3 \
-        web-wizard
-
-
-##	GLUON_SITE_PACKAGES
-#		specify gluon/openwrt packages to include here
-#               The gluon-mesh-batman-adv-* package must come first because of the dependency resolution
-
-
-GLUON_SITE_PACKAGES := \
-		gluon-mesh-batman-adv-15 \
-		gluon-autoupdater \
-		gluon-config-mode-autoupdater \
-		gluon-config-mode-hostname \
-		gluon-config-mode-mesh-vpn \
-		gluon-config-mode-geo-location \
-		gluon-config-mode-contact-info \
-		gluon-config-mode-core \
-		gluon-ebtables-filter-multicast \
-		gluon-ebtables-filter-ra-dhcp \
-		gluon-web-admin \
-		gluon-web-autoupdater \
-		gluon-web-wifi-config \
-		gluon-web-private-wifi \
-		gluon-mesh-vpn-fastd \
-		gluon-radvd \
-		gluon-respondd \
-	        gluon-setup-mode \
-		gluon-status-page \
-		gluon-ssid-changer \
-		respondd-module-airtime \
-		iwinfo \
-		# freifunk-gluon/gluon #2046 - Builds fail with iptables in GLUON_SITE_PACKAGES
-		# Note that iptables is an OpenWrt core package that is included by default (which is what triggered this bug).
-		#iptables \
-
 ##	DEFAULT_GLUON_RELEASE
 #		version string to use for images
 #		gluon relies on
@@ -58,7 +7,7 @@ GLUON_SITE_PACKAGES := \
 #		to decide if a version is newer or not.
 #DEFAULT_GLUON_RELEASE := sid~exp$(shell date '+%Y%m%d')
 # Naming after gluon: v2023.1 = 2023.1.0, as they might release v2023.1.1 = 2023.1.1
-DEFAULT_GLUON_RELEASE := 2023.1.2.0~exp20250107
+DEFAULT_GLUON_RELEASE := 2023.2.5.0~exp20250822
 
 
 ##	GLUON_RELEASE
@@ -87,37 +36,6 @@ GLUON_LANGS ?= de en
 
 # define a region for specific devices like TP-Link Archer C7
 GLUON_REGION := eu
-
-USB_X86_GENERIC_NETWORK_MODULES := \
-		kmod-usb-ohci-pci \
-		kmod-sky2 \
-		kmod-atl2 \
-		kmod-igb \
-		kmod-3c59x \
-		kmod-e100 \
-		kmod-e1000 \
-		kmod-e1000e \
-		kmod-natsemi \
-		kmod-ne2k-pci \
-		kmod-pcnet32 \
-		kmod-8139too \
-		kmod-r8169 \
-		kmod-sis900 \
-		kmod-tg3 \
-		kmod-via-rhine \
-		kmod-via-velocity \
-		kmod-forcedeth \
-		kmod-iwlwifi
-
-ifeq ($(GLUON_TARGET),x86-generic)
-		GLUON_SITE_PACKAGES += \
-	$(USB_X86_GENERIC_NETWORK_MODULES)
-endif
-
-ifeq ($(GLUON_TARGET),x86-64)
-              GLUON_SITE_PACKAGES += \
-       $(USB_X86_GENERIC_NETWORK_MODULES)
-endif
 
 # Do not build images for deprecated devices
 GLUON_DEPRECATED ?= 0
