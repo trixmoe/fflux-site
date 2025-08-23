@@ -89,19 +89,19 @@ move_output_images() {
     echo "Moving output images to output-images-$1"
 }
 
-if [ -n $BUILD_EXPERIMENTAL ]; then
+if [ -n "$BUILD_EXPERIMENTAL" ]; then
     set_site_directory $EXPERIMENTAL_SITE
     build
     move_output_images experimental
 fi
 
-if [ -n $BUILD_BETA ]; then
+if [ -n "$BUILD_BETA" ]; then
     set_site_directory $BETA_SITE
     build
     move_output_images beta
 fi
 
-if [ -n $BUILD_STABLE ]; then
+if [ -n "$BUILD_STABLE" ]; then
     set_site_directory $STABLE_SITE
     build
     move_output_images stable
