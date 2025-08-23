@@ -18,7 +18,7 @@ set_site_directory() {
     fi
     ln -s $1
 
-    popd $GLUON_DIR
+    popd
 }
 
 build() {
