@@ -31,7 +31,7 @@ create_user() {
 ssh_setup() {
     log "Setting up SSH..."
 
-    sudo -u user ssh-keygen -t ed25519 -N '' -C 'freifunk-builder' <<<n
+    sudo -u user ssh-keygen -t ed25519 -N '' -C 'freifunk-builder' < /dev/zero
 
     home_dir=""; eval home_dir=~$username
     echo "$ssh_login_key" >> "$home_dir/.ssh/authorized_keys"
