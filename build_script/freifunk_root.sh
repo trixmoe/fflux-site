@@ -6,7 +6,7 @@ ssh_login_key="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLFCOqpPOTZEQiWcY9TyVQnMoc5b
 projects_c3l_pubkey="|1|X2M4bHKf8E+plhJ6KoDZzCfw5LI=|EpHLDWOmOq4SLelYTGd8SH+7hvU= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIXfRmGmfbxPoErs5lpTnz+PZRQdh0QvPGTiswxFkXOx"
 
 log() {
-    printf "[-] %s\n" "$@"
+    printf "\033[33m[-] %s\033[0m\n" "$@"
 }
 
 install_packages() {
@@ -39,10 +39,12 @@ ssh_setup() {
     echo "$projects_c3l_pubkey" >> "$home_dir/.ssh/known_hosts"
     chmod -v 644 "$home_dir/.ssh/known_hosts"
 
-    echo "The user's SSH pubkey is the following:"
-    cat "$home_dir/.ssh/id_ed25519.pub"
     echo
-    echo "Do not forget to add it to projects.c3l.lu"
+    log "The user's SSH pubkey is the following:"
+    printf "\n\033[32;1m"
+    cat "$home_dir/.ssh/id_ed25519.pub"
+    printf "\033[0m\n"
+    log "Do not forget to add it to projects.c3l.lu"
 }
 
 install_packages
