@@ -36,32 +36,3 @@ packages {
     'respondd-module-airtime',
     'iwinfo',
 }
-
--- this is legacy and was ported over from the previous file
--- unsure if needed or has any use
-usb_x86_generic_network_modules = {
-    'kmod-usb-ohci-pci',
-    'kmod-sky2',
-    'kmod-atl2',
-    'kmod-igb',
-    'kmod-3c59x',
-    'kmod-e100',
-    'kmod-e1000',
-    'kmod-e1000e',
-    'kmod-natsemi',
-    'kmod-ne2k-pci',
-    'kmod-pcnet32',
-    'kmod-8139too',
-    'kmod-r8169',
-    'kmod-sis900',
-    'kmod-tg3',
-    'kmod-via-rhine',
-    'kmod-via-velocity',
-    'kmod-forcedeth',
-    'kmod-iwlwifi',
-}
-
-if target('x86', '64') or target('x86', 'generic') then
-    packages(usb_x86_generic_network_modules)
-end
-
