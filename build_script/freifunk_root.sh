@@ -6,7 +6,7 @@ ssh_login_key="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLFCOqpPOTZEQiWcY9TyVQnMoc5b
 projects_c3l_pubkey="|1|X2M4bHKf8E+plhJ6KoDZzCfw5LI=|EpHLDWOmOq4SLelYTGd8SH+7hvU= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIXfRmGmfbxPoErs5lpTnz+PZRQdh0QvPGTiswxFkXOx"
 
 log() {
-    printf "[-] %s" "$@"
+    printf "[-] %s\n" "$@"
 }
 
 install_packages() {
