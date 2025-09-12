@@ -28,16 +28,23 @@ create_user() {
     sed -i /etc/sudoers -re 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD: ALL/g'
 }
 
+put_into_file() {
+    file_path=$1
+    permissions=$2
+    owner=$3
+    cat >> "$file_path"
+    chmod -v "$permissions" "$file_path"
+    chown "$owner" "$file_path"
+}
+
 ssh_setup() {
     log "Setting up SSH..."
 
     sudo -u user ssh-keygen -t ed25519 -N '' -C 'freifunk-builder' < /dev/zero
 
     home_dir=""; eval home_dir=~$username
-    echo "$ssh_login_key" >> "$home_dir/.ssh/authorized_keys"
-    chmod -v 600 "$home_dir/.ssh/authorized_keys"
-    echo "$projects_c3l_pubkey" >> "$home_dir/.ssh/known_hosts"
-    chmod -v 644 "$home_dir/.ssh/known_hosts"
+    echo "$ssh_login_key" | put_into_file "$home_dir/.ssh/authorized_keys" 600 $username:$username
+    echo "$projects_c3l_pubkey" | put_into_file "$home_dir/.ssh/known_hosts" 644 $username:$username
 
     echo
     log "The user's SSH pubkey is the following:"
