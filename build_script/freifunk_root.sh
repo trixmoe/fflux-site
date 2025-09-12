@@ -1,23 +1,50 @@
 #!/usr/bin/env bash
-# Installing QoL packages and then (after build-essential incl.) dependencies
-apt update && apt install -y htop tmux vim sudo mosh build-essential git python3 python-is-python3 python3-distutils ecdsautils gawk unzip libncurses5-dev zlib1g-dev libssl-dev libelf-dev wget rsync time qemu-utils
+set +xe
 
-# Create `user` user with `sudo` group
-useradd -ms /bin/bash -G sudo user
-# `sudo` group w/o password
-sed -i /etc/sudoers -re 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD: ALL/g'
+username=user
+ssh_login_key="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLFCOqpPOTZEQiWcY9TyVQnMoc5bCYlxLaRKhiB/uxo xbr 2024-06-16"
+projects_c3l_pubkey="|1|X2M4bHKf8E+plhJ6KoDZzCfw5LI=|EpHLDWOmOq4SLelYTGd8SH+7hvU= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIXfRmGmfbxPoErs5lpTnz+PZRQdh0QvPGTiswxFkXOx"
 
-mkdir -v /home/user/.ssh
-# my public key
-echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLFCOqpPOTZEQiWcY9TyVQnMoc5bCYlxLaRKhiB/uxo xbr 2024-06-16" >> /home/user/.ssh/authorized_keys
-# projects.c3l.lu public key
-echo "|1|X2M4bHKf8E+plhJ6KoDZzCfw5LI=|EpHLDWOmOq4SLelYTGd8SH+7hvU= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIXfRmGmfbxPoErs5lpTnz+PZRQdh0QvPGTiswxFkXOx" >> /home/user/.ssh/known_hosts
-chown -vR user:user /home/user/.ssh
-chmod -v 700 /home/user/.ssh
-chmod -v 600 /home/user/.ssh/*
-chmod -v 644 /home/user/.ssh/known_hosts
-# make a key to have access to projects.c3l.lu
-sudo -u user ssh-keygen -t ed25519 -N '' -C 'freifunk-hetzner-builder' -f /home/user/.ssh/id_ed25519 <<<n
-echo ""
-echo "The ssh key is the following: "
-cat /home/user/.ssh/id_ed25519.pub
+log() {
+    printf "[-] %s" "$@"
+}
+
+install_packages() {
+    log "Installing packages..."
+
+    apt update
+    # Installing QoL packages (1) then gluon deps (2)
+    # ! Debian 13-specific !
+    apt install -y htop tmux vim sudo mosh \
+                git python3 python-is-python3 python3-setuptools build-essential ecdsautils gawk unzip libncurses5-dev zlib1g-dev libssl-dev libelf-dev wget rsync time qemu-utils
+}
+
+create_user() {
+    log "Creating user..."
+
+    # user: forcing bash, and needs (passwordless) sudo
+    useradd -ms /bin/bash -G sudo $username
+    # enabling passwordless sudo
+    sed -i /etc/sudoers -re 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD: ALL/g'
+}
+
+ssh_setup() {
+    log "Setting up SSH..."
+
+    sudo -u user ssh-keygen -t ed25519 -N '' -C 'freifunk-builder' <<<n
+
+    home_dir=""; eval home_dir=~$username
+    echo "$ssh_login_key" >> "$home_dir/.ssh/authorized_keys"
+    chmod -v 600 "$home_dir/.ssh/authorized_keys"
+    echo "$projects_c3l_pubkey" >> "$home_dir/.ssh/known_hosts"
+    chmod -v 644 "$home_dir/.ssh/known_hosts"
+
+    echo "The user's SSH pubkey is the following:"
+    cat "$home_dir/.ssh/id_ed25519.pub"
+    echo
+    echo "Do not forget to add it to projects.c3l.lu"
+}
+
+install_packages
+create_user
+ssh_setup
