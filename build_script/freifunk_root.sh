@@ -12,7 +12,7 @@ log() {
 install_packages() {
     log "Installing packages..."
 
-    apt update
+    apt update && apt upgrade -y
     # Installing QoL packages (1) then gluon deps (2)
     # ! Debian 13-specific !
     apt install -y htop tmux vim sudo mosh \
