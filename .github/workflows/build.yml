@@ -37,11 +37,11 @@ jobs:
           df -h
 
       - name: Install dependencies
-        run: apt install -y sudo git python3 python-is-python3 python3-setuptools build-essential ecdsautils gawk unzip libncurses5-dev zlib1g-dev libssl-dev libelf-dev wget rsync time qemu-utils
-      
+        run: sudo apt install -y sudo git python3 python-is-python3 python3-setuptools build-essential ecdsautils gawk unzip libncurses5-dev zlib1g-dev libssl-dev libelf-dev wget rsync time qemu-utils
+
       - name: what's here
         run: pwd; ls --color -a
       - name: what's home
         run: ls --color -a ~/
-      
+
       # - uses: actions/upload-artifact@v4
