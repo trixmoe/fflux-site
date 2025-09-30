@@ -1,0 +1,47 @@
+---
+name: "Build"
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  # targets:
+  #   outputs:
+  #     targets: ${{ steps.get-targets.outputs.targets }}
+  #   runs-on: ubuntu-24.04
+  #   name: Get Gluon targets
+  #   steps:
+  #     - uses: actions/checkout@v4
+  build:
+    # needs: [targets]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cleanup disk
+        run: |
+          echo "Disk space before cleanup"
+          df -h
+          # Remove packages not required to run the Gluon build CI
+          sudo apt-get -y remove \
+            dotnet-* \
+            firefox \
+            google-chrome-stable \
+            kubectl \
+            microsoft-edge-stable \
+            temurin-*-jdk
+          # Remove Android SDK tools
+          sudo rm -rf /usr/local/lib/android
+          echo "Disk space after cleanup"
+          df -h
+
+      - name: Install dependencies
+        run: apt install -y sudo git python3 python-is-python3 python3-setuptools build-essential ecdsautils gawk unzip libncurses5-dev zlib1g-dev libssl-dev libelf-dev wget rsync time qemu-utils
+      
+      - name: what's here
+        run: pwd; ls --color -a
+      - name: what's home
+        run: ls --color -a ~/
+      
+      # - uses: actions/upload-artifact@v4
