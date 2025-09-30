@@ -19,18 +19,24 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: 'config'
+      - uses: actions/checkout@v4
+        with:
+          repository: 'freifunk-gluon/gluon'
+          path: 'gluon'
       - name: Cleanup disk
         run: |
           echo "Disk space before cleanup"
           df -h
           # Remove packages not required to run the Gluon build CI
-          sudo apt-get -y remove \
+          sudo apt-get -y purge \
             dotnet-* \
             firefox \
             google-chrome-stable \
             kubectl \
             microsoft-edge-stable \
-            temurin-*-jdk
+            temurin-*-jdk default-jre-headless openjdk-21-jre-headless ca-certificates-java
           # Remove Android SDK tools
           sudo rm -rf /usr/local/lib/android
           echo "Disk space after cleanup"
